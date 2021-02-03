@@ -1,20 +1,23 @@
-
-import React, { useState, useEffect } from 'react';
-
+import React, { useState, useEffect } from "react";
+import { useHistory, useLocation } from "react-router-dom";
 // import {useLocation} from 'react-router-dom';
-
 
 import styled from "@emotion/styled";
 
-
 function SearchBar() {
-  const [query,setQuery] = useState(''); 
+  const [query, setQuery] = useState("");
+  // to pass parameters to URL
+  let history = useHistory();
+  // to read parameters from URL
+  let location = useLocation();
+  let locationStr = location.search;
+  // get rid of the ? sign
+  locationStr = locationStr.replace("?", "");
 
-
-
-useEffect(() => {
-
-}, []);
+  useEffect(() => {
+    // setting the query state with params from useLocation
+    setQuery(locationStr);
+  }, [locationStr]);
 
   const DATASET = [
     "Aayla Secura",
@@ -424,11 +427,11 @@ useEffect(() => {
 
   let FormBlock = styled.div`
     margin-top: 100px;
-  `
+  `;
   let Form = styled.form`
     display: flex;
-    justify-content: center
-  `
+    justify-content: center;
+  `;
   let Input = styled.input`
     font-size: 18px;
     width: 50%;
@@ -442,10 +445,10 @@ useEffect(() => {
     display: flex;
     font-size: calc(16px + 0.6vw);
     padding: 50px;
-  ` 
+  `;
   let ResultUl = styled.ul`
     margin: 0 auto 0 auto;
-  `
+  `;
   let ResultList = styled.li`
     list-style: none;
   `;
@@ -453,7 +456,11 @@ useEffect(() => {
     e.preventDefault();
   }
   function handleChange(e) {
-    setQuery(e.target.value);
+    // Here we pass parameters to URL
+    history.push({
+      pathname: "/",
+      search: `${e.target.value}`,
+    });
   }
 
   return (
@@ -461,29 +468,30 @@ useEffect(() => {
       <FormBlock>
         <Form onSubmit={handleSubmit}>
           {/* <Link to={`/search?q=${query}`} style={{display: 'flex',justifyContent:'center', textDecoration: 'none', width:'50%' }}> */}
-            <Input
-              type="text"
-              value={query}
-              onChange={handleChange}
-              placeholder="Search"
-              autoFocus="on"
-            />
+          <Input
+            type="text"
+            value={query}
+            onChange={handleChange}
+            placeholder="Search"
+            autoFocus="on"
+          />
           {/* </Link> */}
-          </Form>
-        </FormBlock>
-        <ResultBlock>
-          <ResultUl>
-            {query? DATASET.filter((item) => {
-              if (query === "") return '';
-              else if (item.toLowerCase().includes(query.toLowerCase())) {
-                return item;
-              }
-              return "";
-            }).map((item, index) => {
-              return <ResultList key={index}>{item}</ResultList>;
-            }): 'Please Insert a Keyword'}
-          </ResultUl>
-
+        </Form>
+      </FormBlock>
+      <ResultBlock>
+        <ResultUl>
+          {query
+            ? DATASET.filter((item) => {
+                if (query === "") return "";
+                else if (item.toLowerCase().includes(query.toLowerCase())) {
+                  return item;
+                }
+                return "";
+              }).map((item, index) => {
+                return <ResultList key={index}>{item}</ResultList>;
+              })
+            : "Please Insert a Keyword"}
+        </ResultUl>
       </ResultBlock>
     </div>
   );

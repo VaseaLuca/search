@@ -482,9 +482,9 @@ function SearchBar() {
         <ResultUl>
           {query
             ? DATASET.filter((item) => {
-                if (query === "") return "";
+                if (query === "") return '';
                 else if (item.toLowerCase().includes(query.toLowerCase())) {
-                  return item;
+                 return item;
                 }
                 return "";
               }).map((item, index) => {

@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { Route } from 'react-router-dom';
 import SearchBar from './SearchBar';
 
 function App() {
@@ -7,7 +7,7 @@ function App() {
 
   return (
     <div>
-      <SearchBar />
+     <Route path='/' exact component={SearchBar} />
     </div>
   )
 }

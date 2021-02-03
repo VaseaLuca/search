@@ -1,10 +1,20 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+
+// import {useLocation} from 'react-router-dom';
+
+
 import styled from "@emotion/styled";
 
 
 function SearchBar() {
   const [query,setQuery] = useState(''); 
+
+
+
+useEffect(() => {
+
+}, []);
 
   const DATASET = [
     "Aayla Secura",
@@ -412,7 +422,6 @@ function SearchBar() {
     "Zuckuss",
   ];
 
-
   let FormBlock = styled.div`
     margin-top: 100px;
   `
@@ -451,27 +460,30 @@ function SearchBar() {
     <div>
       <FormBlock>
         <Form onSubmit={handleSubmit}>
-          <Input
-            type="text"
-            value={query}
-            onChange={handleChange}
-            placeholder="Search"
-            autoFocus="on"
-          />
-        </Form>
-      </FormBlock>
-      <ResultBlock>
-        <ResultUl>
-          {DATASET.filter((item) => {
-            if (query === "") return null;
-            else if (item.toLowerCase().includes(query.toLowerCase())) {
-              return item;
-            }
-              return ''
-          }).map((item, index) => {
-            return <ResultList key={index}>{item}</ResultList>;
-          })}
-        </ResultUl>
+          {/* <Link to={`/search?q=${query}`} style={{display: 'flex',justifyContent:'center', textDecoration: 'none', width:'50%' }}> */}
+            <Input
+              type="text"
+              value={query}
+              onChange={handleChange}
+              placeholder="Search"
+              autoFocus="on"
+            />
+          {/* </Link> */}
+          </Form>
+        </FormBlock>
+        <ResultBlock>
+          <ResultUl>
+            {query? DATASET.filter((item) => {
+              if (query === "") return '';
+              else if (item.toLowerCase().includes(query.toLowerCase())) {
+                return item;
+              }
+              return "";
+            }).map((item, index) => {
+              return <ResultList key={index}>{item}</ResultList>;
+            }): 'Please Insert a Keyword'}
+          </ResultUl>
+
       </ResultBlock>
     </div>
   );

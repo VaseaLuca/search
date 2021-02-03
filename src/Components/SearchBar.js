@@ -447,9 +447,6 @@ function SearchBar() {
     setQuery(e.target.value);
   }
 
-
-
-
   return (
     <div>
       <FormBlock>
@@ -470,6 +467,7 @@ function SearchBar() {
             else if (item.toLowerCase().includes(query.toLowerCase())) {
               return item;
             }
+              return ''
           }).map((item, index) => {
             return <ResultList key={index}>{item}</ResultList>;
           })}

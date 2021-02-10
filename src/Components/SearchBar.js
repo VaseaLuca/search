@@ -68,9 +68,7 @@ function SearchBar() {
         <ResultUl>
           {query
             ? DATASET.filter((item) => {
-                if (item.toLowerCase().includes(query.toLowerCase())) {
-                  return item;
-                }
+                if (item.toLowerCase().includes(query.toLowerCase())) return item;
                 return false;
               }).map((item, index) => {
                 return <ResultList key={index}>{item}</ResultList>;

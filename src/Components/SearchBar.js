@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
-import DATASET from './dataSet';
+import DATASET from "./dataSet";
 import { useHistory, useLocation } from "react-router-dom";
-
 import styled from "@emotion/styled";
 
 function SearchBar() {
@@ -56,15 +55,22 @@ function SearchBar() {
     <div>
       <FormBlock>
         <Form onSubmit={handleSubmit}>
-          <Input type="text" value={query} onChange={handleChange} placeholder="Search" autoFocus="on" />
+          <Input
+            type="text"
+            value={query}
+            onChange={handleChange}
+            placeholder="Search"
+            autoFocus="on"
+          />
         </Form>
       </FormBlock>
       <ResultBlock>
         <ResultUl>
-          {query? DATASET.filter((item) => {
-                if (query === "") return true
+          {query
+            ? DATASET.filter((item) => {
+                if (query === "") return true;
                 else if (item.toLowerCase().includes(query.toLowerCase())) {
-                 return item;
+                  return item;
                 }
                 return false;
               }).map((item, index) => {

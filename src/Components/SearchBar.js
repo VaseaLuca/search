@@ -6,8 +6,8 @@ import styled from "@emotion/styled";
 
 function SearchBar() {
   const [query, setQuery] = useState("");
-  let history = useHistory();
-  let location = useLocation();
+  const history = useHistory();
+  const location = useLocation();
   let locationStr = location.search;
 
   locationStr = locationStr.replace("?", "");
@@ -16,14 +16,14 @@ function SearchBar() {
     setQuery(locationStr);
   }, [locationStr]);
 
-  let FormBlock = styled.div`
+  const FormBlock = styled.div`
     margin-top: 100px;
   `;
-  let Form = styled.form`
+  const Form = styled.form`
     display: flex;
     justify-content: center;
   `;
-  let Input = styled.input`
+  const Input = styled.input`
     font-size: 18px;
     width: 50%;
     padding: 5px;
@@ -32,15 +32,15 @@ function SearchBar() {
     border-bottom: 1px solid;
     outline: none;
   `;
-  let ResultBlock = styled.div`
+  const ResultBlock = styled.div`
     display: flex;
     font-size: calc(16px + 0.6vw);
     padding: 50px;
   `;
-  let ResultUl = styled.ul`
+  const ResultUl = styled.ul`
     margin: 0 auto 0 auto;
   `;
-  let ResultList = styled.li`
+  const ResultList = styled.li`
     list-style: none;
   `;
   function handleSubmit(e) {
@@ -62,11 +62,11 @@ function SearchBar() {
       <ResultBlock>
         <ResultUl>
           {query? DATASET.filter((item) => {
-                if (query === "") return '';
+                if (query === "") return true
                 else if (item.toLowerCase().includes(query.toLowerCase())) {
                  return item;
                 }
-                return "";
+                return false;
               }).map((item, index) => {
                 return <ResultList key={index}>{item}</ResultList>;
               })

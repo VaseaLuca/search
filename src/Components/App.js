@@ -4,12 +4,10 @@ import SearchBar from './SearchBar';
 
 function App() {
 
-
   return (
     <div>
      <Route path='/' exact component={SearchBar} />
     </div>
   )
 }
-
-export default App
+export default App;
